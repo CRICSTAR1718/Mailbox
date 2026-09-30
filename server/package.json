@@ -1,0 +1,20 @@
+{
+  "name": "mailbox-server",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "db:seed": "node db/seed.js",
+    "db:reset": "node db/reset.js && node db/seed.js"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.6.0",
+    "better-sqlite3": "^13.0.3",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

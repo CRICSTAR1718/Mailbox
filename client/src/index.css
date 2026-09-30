@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+/* `dark:` utilities follow the .dark class on <html> (set from Settings), not the OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Colour tokens. Each is a utility (bg-panel, text-ink, border-line, ...) and is overridden in .dark below,
+   so components use the token instead of repeating a light/dark pair. */
+@theme {
+  --font-sans: "Roboto", "Google Sans", Arial, sans-serif;
+
+  --color-surface: #f6f8fc;
+  --color-panel: #ffffff;
+  --color-popover: #ffffff;
+  --color-search: #eaf1fb;
+  --color-active: #d3e3fd;
+  --color-hover: #e4e8ef;
+  --color-compose: #c2e7ff;
+  --color-compose-ink: #001d35;
+  --color-ink: #1f1f1f;
+  --color-icon: #444746;
+  --color-muted: #5f6368;
+  --color-read-row: #f2f6fc;
+  --color-row-selected: #c2dbff;
+  --color-tint: #f1f3f4;
+  --color-tint-strong: #e3e5e8;
+  --color-line: #e0e0e0;
+  --color-row: rgba(100, 121, 143, 0.12);
+  --color-edge: #dadce0;
+  --color-outline: #747775;
+  --color-link: #0b57d0;
+  --color-link-tint: #e8f0fe;
+  --color-primary: #0b57d0;
+  --color-primary-hover: #0a4cb8;
+  --color-on-primary: #ffffff;
+  --color-danger: #d93025;
+  --color-btn-hover: rgba(0, 0, 0, 0.08);
+}
+
+/* Gmail-style dark theme */
+.dark {
+  color-scheme: dark;
+  --color-surface: #131314;
+  --color-panel: #1e1f20;
+  --color-popover: #2d2f31;
+  --color-search: #282a2c;
+  --color-active: #004a77;
+  --color-hover: #2d2f31;
+  --color-compose: #004a77;
+  --color-compose-ink: #c2e7ff;
+  --color-ink: #e3e3e3;
+  --color-icon: #c4c7c5;
+  --color-muted: #a1a5a9;
+  --color-read-row: #18191a;
+  --color-row-selected: #2a3d5c;
+  --color-tint: #2d2f31;
+  --color-tint-strong: #3c4043;
+  --color-line: #3c4043;
+  --color-row: rgba(255, 255, 255, 0.08);
+  --color-edge: #5f6368;
+  --color-outline: #8e918f;
+  --color-link: #a8c7fa;
+  --color-link-tint: #1f3a5f;
+  --color-primary: #a8c7fa;
+  --color-primary-hover: #c2d7fb;
+  --color-on-primary: #062e6f;
+  --color-danger: #f28b82;
+  --color-btn-hover: rgba(255, 255, 255, 0.1);
+}
+
+/* list density (Settings): row height used by the message list */
+:root {
+  --row-h: 40px;
+}
+html[data-density="comfortable"] {
+  --row-h: 48px;
+}
+html[data-density="compact"] {
+  --row-h: 32px;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* slim scrollbars like the sidebar/list in Gmail */
+.slim-scroll::-webkit-scrollbar {
+  width: 12px;
+}
+.slim-scroll::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  background-clip: content-box;
+}
+.slim-scroll:hover::-webkit-scrollbar-thumb {
+  background-color: #c4c7c5;
+}
+
+/* rendered email bodies */
+.mail-body {
+  font-size: 14px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.mail-body p {
+  margin: 0 0 12px;
+}
+.mail-body a {
+  color: var(--color-link);
+}
+.mail-body img {
+  max-width: 100%;
+  height: auto;
+}
+.mail-body blockquote {
+  margin: 0 0 12px;
+  padding-left: 12px;
+  border-left: 2px solid var(--color-edge);
+  color: var(--color-muted);
+}
+/* quoted history is collapsed until the "..." toggle is pressed */
+.mail-body.quotes-hidden blockquote,
+.mail-body.quotes-hidden p:has(+ blockquote) {
+  display: none;
+}
+
+/* loading placeholders */
+.skeleton {
+  background: var(--color-tint-strong);
+  border-radius: 4px;
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
